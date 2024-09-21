@@ -23,9 +23,13 @@ const CountDown = () => {
   const { countDown, msg } = timer;
 
   return (
-    <div className="text-center my-5">
-      <h1 className="text-4xl font-bold text-green-600">{countDown}</h1>
-      <h3 className="text-xl text-gray-500">{msg}</h3>
+    <div className="flex flex-col space-y-2 text-center">
+      <div className="flex justify-center items-center">
+        <span className="text-gray-400 countdown font-mono text-6xl">{countDown}</span>
+      </div>
+      <div className="flex justify-center items-center">
+        <h3 className="text-xl text-gray-400">{msg}</h3>
+      </div>
     </div>
   );
 };

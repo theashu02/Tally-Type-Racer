@@ -13,21 +13,31 @@ const ScoreBoard = ({ players }) => {
   if (scoreBoard.length === 0) return null;
 
   return (
-    <div className="my-3 overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
-        <thead className="bg-gray-200 text-gray-600">
+    <div
+      className="flex flex-col w-screen justify-center border border-gray-400"
+      style={{ backgroundColor: "#22215A" }}
+    >
+      <table className="table rounded-lg shadow-md">
+        {/* <thead className="bg-gray-200 text-gray-600">
           <tr>
             <th className="px-4 py-2 border-b">#</th>
             <th className="px-4 py-2 border-b">User</th>
             <th className="px-4 py-2 border-b">WPM</th>
           </tr>
+        </thead> */}
+        <thead className="text-center text-lg">
+          <tr>
+            <th className="px-4 py-2 border-b">#</th>
+            <th className="px-4 py-2 border-b">Player Name</th>
+            <th className="px-4 py-2 border-b">WPM</th>
+          </tr>
         </thead>
-        <tbody className="text-gray-700">
+        <tbody className="text-center text-lg">
           {scoreBoard.map((player, index) => (
-            <tr key={player._id} className="hover:bg-gray-100">
-              <td className="px-4 py-2 border-b">{index + 1}</td>
-              <td className="px-4 py-2 border-b">{player.nickName}</td>
-              <td className="px-4 py-2 border-b">{player.WPM}</td>
+            <tr key={player._id} className="hover font-mono text-slate-300">
+              <td>{index + 1}</td>
+              <td>{player.nickName}</td>
+              <td>{player.WPM}</td>
             </tr>
           ))}
         </tbody>

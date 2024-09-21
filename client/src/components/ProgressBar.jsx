@@ -14,10 +14,12 @@ const ProgressBar = ({ player, players, wordsLength }) => {
     <div className="space-y-4">
       {/* Display current player's progress */}
       <div key={player._id} className="flex flex-col">
-        <h5 className="text-left text-lg font-semibold">{player.nickName}</h5>
-        <div className="relative pt-1">
+        <div className="relative pt-1 justify-center items-center">
+          <h5 className="text-left text-lg font-semibold font-mono">
+            Name: {player.nickName}
+          </h5>
           <div className="flex items-center justify-between">
-            <div className="text-xs font-medium text-blue-600">
+            <div className="text-xs font-medium text-gray-100 mb-2">
               {percentage}
             </div>
           </div>

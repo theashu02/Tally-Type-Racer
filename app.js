@@ -10,7 +10,7 @@ const Game = require('./Models/Game');
 const QuotableAPI = require('./QuotableAPI');
 
 mongoose.connect(
-  "mongodb+srv://ashu:ashu@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+  "mongodb+srv://ashu:ashu0512@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
     console.log("successfully connected to mongo database");
@@ -96,6 +96,8 @@ io.on('connect',(socket)=>{
     });
 
     socket.on('join-game',async ({gameID : _id,nickName})=>{
+        console.log("into backend", gameID);
+        
         try{
             // get game
             let game = await Game.findById(_id);
@@ -122,6 +124,8 @@ io.on('connect',(socket)=>{
     });
 
     socket.on('create-game',async (nickName)=>{
+        console.log("create-game", nickName);
+        
         try{
             // get words that our users have to type out
             const quotableData = await QuotableAPI();

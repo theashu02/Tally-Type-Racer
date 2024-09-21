@@ -15,7 +15,7 @@ const StartBtn = ({ player, gameID }) => {
     <button
       type="button"
       onClick={onClickHandler}
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg"
+      className="btn btn-warning font-bold py-2 px-4 rounded-lg"
       style={{ cursor: "pointer" }}
     >
       Start Game

@@ -17,7 +17,7 @@ const findPlayer = (players) => {
 const TypeRacer = ({ gameState }) => {
   const { _id, players, words, isOpen, isOver } = gameState;
   console.log(_id, players, words, isOpen, isOver);
-  
+
   const player = findPlayer(players);
 
   if (_id === "") {
@@ -25,8 +25,8 @@ const TypeRacer = ({ gameState }) => {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="text-center mb-8">
+    <div className="flex flex-col container mx-auto justify-center p-4">
+      <div className="text-center mt-3 mb-4">
         <DisplayWords words={words} player={player} />
       </div>
       <div className="mb-8">
@@ -42,7 +42,7 @@ const TypeRacer = ({ gameState }) => {
       <div className="mb-8">
         <CountDown />
       </div>
-      <div className="mb-8">
+      <div className="flex mb-8 justify-center">
         <StartBtn player={player} gameID={_id} />
       </div>
       {isOpen && (
@@ -50,7 +50,7 @@ const TypeRacer = ({ gameState }) => {
           <DisplayGameCode gameID={_id} />
         </div>
       )}
-      <div className="mb-8">
+      <div className="flex justify-center">
         <ScoreBoard players={players} />
       </div>
     </div>
