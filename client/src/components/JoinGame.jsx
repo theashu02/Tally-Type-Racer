@@ -10,7 +10,7 @@ const JoinGame = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(userInput);
+    console.log("gave user input at 13",userInput);
     socket.emit("join-game", userInput);
   };
 

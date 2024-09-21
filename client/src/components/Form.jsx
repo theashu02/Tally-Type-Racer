@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import socket from "../socketConfig";
+import PropTypes from "prop-types";
 
 const Form = ({ isOpen, isOver, gameID }) => {
   const [userInput, setUserInput] = useState("");
@@ -29,13 +30,13 @@ const Form = ({ isOpen, isOver, gameID }) => {
   return (
     <div className="flex justify-center my-4">
       <form className="w-full max-w-sm">
-        <div className="mb-4">
+        <div className="flex justify-center mb-4">
           <input
             type="text"
             readOnly={isOpen || isOver}
             onChange={onChange}
             value={userInput}
-            className="w-full px-3 py-2 text-gray-700 border rounded shadow focus:outline-none focus:ring focus:ring-indigo-300"
+            className="input input-bordered input-info max-w-xs w-full px-3 py-2 text-blue-100 border rounded shadow focus:outline-none focus:ring focus:ring-indigo-300"
             ref={textInput}
             placeholder="Type here..."
           />
@@ -45,4 +46,9 @@ const Form = ({ isOpen, isOver, gameID }) => {
   );
 };
 
+Form.propTypes = {
+  isOpen: PropTypes.bool.isRequired, // isOpen must be a boolean and is required
+  isOver: PropTypes.bool.isRequired, // isOver must be a boolean and is required
+  gameID: PropTypes.string.isRequired, // gameID must be a string and is required
+};
 export default Form;

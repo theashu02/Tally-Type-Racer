@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import socket from "../socketConfig";
 
-const CountDown = (props) => {
+const CountDown = () => {
   const [timer, setTimer] = useState({ countDown: "", msg: "" });
 
   useEffect(() => {

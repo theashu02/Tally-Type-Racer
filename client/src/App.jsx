@@ -37,7 +37,7 @@ function App() {
   }, [gameState._id, navigate]);
 
   return (
-    <div className="min-h-screen">
+    <div className="flex h-screen w-screen">
       <Routes>
         <Route path="/" element={<GameMenu />} />
         <Route path="/game/create" element={<CreateGame />} />
@@ -50,5 +50,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;

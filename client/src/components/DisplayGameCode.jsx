@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import PropTypes from "prop-types";
 
 const DisplayGameCode = ({ gameID }) => {
   const [copySuccess, setCopySuccess] = useState(false);
@@ -48,4 +49,7 @@ const DisplayGameCode = ({ gameID }) => {
   );
 };
 
+DisplayGameCode.propTypes = {
+  gameID: PropTypes.string.isRequired, // gameID should be a string and is required
+};
 export default DisplayGameCode;

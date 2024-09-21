@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const calculatePercentage = (player, wordsLength) => {
   if (player.currentWordIndex !== 0) {
     return ((player.currentWordIndex / wordsLength) * 100).toFixed(2) + "%";
@@ -59,5 +61,22 @@ const ProgressBar = ({ player, players, wordsLength }) => {
     </div>
   );
 };
+
+ProgressBar.propTypes = {
+  player: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    nickName: PropTypes.string.isRequired,
+    currentWordIndex: PropTypes.number.isRequired,
+  }).isRequired,
+  players: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      nickName: PropTypes.string.isRequired,
+      currentWordIndex: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+  wordsLength: PropTypes.number.isRequired,
+};
+
 
 export default ProgressBar;

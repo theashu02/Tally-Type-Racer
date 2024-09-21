@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const getScoreboard = (players) => {
   const scoreBoard = players.filter((player) => player.WPM !== -1);
   return scoreBoard.sort((a, b) =>
@@ -34,4 +36,13 @@ const ScoreBoard = ({ players }) => {
   );
 };
 
+ScoreBoard.propTypes = {
+  players: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired, // Each player should have a unique id
+      nickName: PropTypes.string.isRequired, // Each player should have a nickname
+      WPM: PropTypes.number.isRequired, // WPM should be a number, and it's required
+    })
+  ).isRequired, // players is a required array
+};
 export default ScoreBoard;

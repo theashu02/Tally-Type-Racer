@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 // Function to get words typed correctly by the player
 const getTypedWords = (words, player) => {
   const typedWords = words.slice(0, player.currentWordIndex).join(" ");
@@ -33,6 +35,14 @@ const DisplayWords = ({ words, player }) => {
       {getWordsToBeTyped(words, player)}
     </div>
   );
+};
+DisplayWords.propTypes = {
+  words: PropTypes.arrayOf(PropTypes.string).isRequired, // words should be an array of strings
+  player: PropTypes.shape({
+    currentWordIndex: PropTypes.number.isRequired, // player should have a currentWordIndex which is a number
+    _id: PropTypes.string.isRequired, // player should have an _id which is a string
+    nickName: PropTypes.string.isRequired, // player should have a nickName which is a string
+  }).isRequired, // player is a required object
 };
 
 export default DisplayWords;

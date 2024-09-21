@@ -1,7 +1,9 @@
 import { useState } from "react";
 import socket from "../socketConfig.js";
 
-const CreateGame = (props) => {
+const CreateGame = () => {
+  // console.log(props);
+  
   const [nickName, setNickName] = useState("");
 
   const onChange = (e) => {
@@ -10,12 +12,14 @@ const CreateGame = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log("check nickname", nickName);
+    
     socket.emit("create-game", nickName);
     console.log("button pressed")
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen w-screen">
       <div className="space-y-9 w-full max-w-md p-8 rounded-lg shadow-md">
         <h1 className="text-center text-zinc-100 hover:text-gray-200 text-4xl font-bold mb-6">
           Create Game

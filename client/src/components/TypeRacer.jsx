@@ -1,4 +1,6 @@
-import { Navigate } from "react-router-dom"; // Use Navigate instead of Redirect
+// import React from "react";/
+import PropTypes from "prop-types"; // Import PropTypes for prop validation
+import { Navigate } from "react-router-dom";
 import CountDown from "./CountDown";
 import StartBtn from "./StartBtn";
 import socket from "../socketConfig";
@@ -14,10 +16,11 @@ const findPlayer = (players) => {
 
 const TypeRacer = ({ gameState }) => {
   const { _id, players, words, isOpen, isOver } = gameState;
+  console.log(_id, players, words, isOpen, isOver);
+  
   const player = findPlayer(players);
 
   if (_id === "") {
-    // Replace Redirect with Navigate
     return <Navigate to="/" />;
   }
 
@@ -52,6 +55,22 @@ const TypeRacer = ({ gameState }) => {
       </div>
     </div>
   );
+};
+
+// Define propTypes for TypeRacer component
+TypeRacer.propTypes = {
+  gameState: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    players: PropTypes.arrayOf(
+      PropTypes.shape({
+        socketID: PropTypes.string.isRequired,
+        name: PropTypes.string,
+      })
+    ).isRequired,
+    words: PropTypes.arrayOf(PropTypes.string).isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    isOver: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 export default TypeRacer;
