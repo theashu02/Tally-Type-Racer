@@ -14,16 +14,17 @@ const ProgressBar = ({ player, players, wordsLength }) => {
     <div className="space-y-4">
       {/* Display current player's progress */}
       <div key={player._id} className="flex flex-col">
-        <div className="relative pt-1 justify-center items-center">
-          <h5 className="text-left text-lg font-semibold font-mono">
+        <div className="flex flex-col pt-1 justify-center items-center">
+          <h5 className="text-left text-2xl font-semibold font-mono">
             Name: {player.nickName}
           </h5>
           <div className="flex items-center justify-between">
-            <div className="text-xs font-medium text-gray-100 mb-2">
+            <div className="text-lg font-medium text-gray-100 mb-2">
               {percentage}
             </div>
           </div>
-          <div className="flex w-full bg-gray-200 rounded-full h-3">
+
+          <div className="flex w-10/12 bg-gray-200 rounded-full h-3">
             <div
               className="bg-blue-500 h-full rounded-full"
               style={{ width: percentage }}
@@ -49,7 +50,7 @@ const ProgressBar = ({ player, players, wordsLength }) => {
                     {playerPercentage}
                   </div>
                 </div>
-                <div className="flex w-full bg-gray-200 rounded-full h-3">
+                <div className="flex w-10/12 bg-gray-200 rounded-full h-3">
                   <div
                     className="bg-blue-500 h-full rounded-full"
                     style={{ width: playerPercentage }}

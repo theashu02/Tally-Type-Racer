@@ -5,6 +5,7 @@ import CreateGame from "./components/CreateGame";
 import JoinGame from "./components/JoinGame";
 import socket from "./socketConfig";
 import TypeRacer from "./components/TypeRacer";
+import { Toaster, toast } from "react-hot-toast";
 
 function App() {
   const [gameState, setGameState] = useState({
@@ -36,10 +37,15 @@ function App() {
     }
   }, [gameState._id, navigate]);
 
+  const handleStartGame = () => {
+    // Show toast notification when the game starts
+    toast.success("Game Started! Get ready to type!");
+    // Add other game starting logic here
+  };
   return (
     <div className="flex h-screen w-screen">
       <Routes>
-        <Route path="/" element={<GameMenu />} />
+        <Route path="/" element={<GameMenu onStartGame={handleStartGame} />} />
         <Route path="/game/create" element={<CreateGame />} />
         <Route path="/game/join" element={<JoinGame />} />
         <Route
@@ -47,6 +53,7 @@ function App() {
           element={<TypeRacer gameState={gameState} />}
         />
       </Routes>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 }

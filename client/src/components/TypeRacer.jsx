@@ -69,7 +69,7 @@ TypeRacer.propTypes = {
     ).isRequired,
     words: PropTypes.arrayOf(PropTypes.string).isRequired,
     isOpen: PropTypes.bool.isRequired,
-    isOver: PropTypes.bool.isRequired,
+    isOver: PropTypes.bool,
   }).isRequired,
 };
 

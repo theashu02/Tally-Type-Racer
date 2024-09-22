@@ -12,7 +12,7 @@ const QuotableAPI = require('./QuotableAPI');
 async function connectToDB() {
   try {
     await mongoose.connect(
-      "mongodb+srv://ashu:ashu0@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+      "mongodb+srv://ashu:ashu@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     );
     console.log("Successfully connected to MongoDB");
   } catch (err) {
@@ -101,7 +101,7 @@ io.on('connect',(socket)=>{
     });
 
     socket.on('join-game',async ({gameID : _id,nickName})=>{
-        console.log("into backend", gameID);
+        // console.log("into backend", gameID);
         
         try{
             // get game
@@ -167,7 +167,7 @@ const startGameClock = async (gameID)=>{
     // save teh game
     game = await game.save();
     // time is in seconds
-    let time = 120;
+    let time = 60;
     // Start the Game Clock
     let timerID = setInterval(function gameIntervalFunc(){
         // keep countdown going
