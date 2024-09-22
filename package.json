@@ -2,9 +2,11 @@
   "name": "tally_type_racer",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "backend/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon backend/server.js",
+    "start": "node backend/server.js",
+    "build": "npm install && npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +14,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "express": "^4.17.1",
-    "mongoose": "^5.9.10",
+    "mongoose": "^8.6.3",
+    "nodemon": "^3.1.7",
     "react-router-dom": "^5.1.2",
     "socket.io": "^2.3.0"
   }

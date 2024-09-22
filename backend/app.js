@@ -9,13 +9,18 @@ const io = socketio(expressServer);
 const Game = require('./Models/Game');
 const QuotableAPI = require('./QuotableAPI');
 
-mongoose.connect(
-  "mongodb+srv://ashu:ashu@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log("successfully connected to mongo database");
+async function connectToDB() {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://ashu:ashu0512@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    );
+    console.log("Successfully connected to MongoDB");
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
   }
-);
+}
+
+connectToDB();
 
 io.on('connect',(socket)=>{
 
