@@ -12,7 +12,7 @@ const QuotableAPI = require('./QuotableAPI');
 async function connectToDB() {
   try {
     await mongoose.connect(
-      "mongodb+srv://ashu:ashu0512@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+      "mongodb+srv://ashu:ashu0@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     );
     console.log("Successfully connected to MongoDB");
   } catch (err) {
