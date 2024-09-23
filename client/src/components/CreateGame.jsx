@@ -19,7 +19,7 @@ const CreateGame = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen w-screen">
+    <div className="flex justify-center items-center h-screen w-screen">
       <div className="space-y-9 w-full max-w-md p-8 rounded-lg shadow-md">
         <h1 className="text-center text-zinc-100 hover:text-gray-200 text-4xl font-bold mb-6">
           Create Game

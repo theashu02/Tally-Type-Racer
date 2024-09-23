@@ -14,7 +14,8 @@ async function connectToDB() {
     await mongoose.connect(
       "mongodb+srv://ashu:ashu@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     );
-    console.log("Successfully connected to MongoDB");
+    // console.log("Successfully connected to MongoDB", );
+    console.log(`MongoDB connected: ${mongoose.connection.host}`);
   } catch (err) {
     console.error("Error connecting to MongoDB:", err);
   }

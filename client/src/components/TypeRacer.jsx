@@ -1,4 +1,3 @@
-// import React from "react";/
 import PropTypes from "prop-types"; // Import PropTypes for prop validation
 import { Navigate } from "react-router-dom";
 import CountDown from "./CountDown";
@@ -25,8 +24,8 @@ const TypeRacer = ({ gameState }) => {
   }
 
   return (
-    <div className="flex flex-col container mx-auto justify-center p-4">
-      <div className="text-center mt-3 mb-4">
+    <div className="flex flex-col justify-center w-screen h-screen">
+      <div className="text-center mt-3">
         <DisplayWords words={words} player={player} />
       </div>
       <div className="mb-8">

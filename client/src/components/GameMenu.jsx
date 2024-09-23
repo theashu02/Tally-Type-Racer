@@ -6,9 +6,9 @@ const GameMenu = () => {
 
   return (
     <>
-      <div className="flex flex-col h-screen w-screen">
-        <div className="flex flex-col top-0">
-          <div className="flex flex-col space-y-3 rounded-md w-full h-96 text-center justify-center">
+      <div className="flex flex-col h-screen w-screen justify-center">
+        <div className="flex flex-col h-1/2 top-0">
+          <div className="flex flex-col space-y-3 rounded-md w-full h-1/2 text-center justify-center">
             <div>
               <h1 className="text-4xl font-bold mb-8">
                 Welcome to Tally Type-Racer

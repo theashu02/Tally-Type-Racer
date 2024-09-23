@@ -5,7 +5,11 @@ import CreateGame from "./components/CreateGame";
 import JoinGame from "./components/JoinGame";
 import socket from "./socketConfig";
 import TypeRacer from "./components/TypeRacer";
-import { Toaster, toast } from "react-hot-toast";
+import Navbar from "./components/Navbar";
+import LoginPage from "./auth/LoginPage";
+import { auth } from "./firebase/config";
+import SignUpPage from "./auth/SignUpPage";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [gameState, setGameState] = useState({
@@ -17,6 +21,20 @@ function App() {
 
   const navigate = useNavigate(); // Programmatic navigation
 
+  const [user, setUser] = useState(null); // User state
+
+  useEffect(() => {
+    // Listen for Firebase auth changes
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      if (currentUser) {
+        setUser(currentUser); // User is logged in
+      } else {
+        setUser(null); // User is logged out
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup the listener on unmount
+  }, []);
   useEffect(() => {
     // Listen for game updates from the server
     socket.on("updateGame", (game) => {
@@ -37,27 +55,33 @@ function App() {
     }
   }, [gameState._id, navigate]);
 
-  const handleStartGame = () => {
-    // Show toast notification when the game starts
-    toast.success("Game Started! Get ready to type!");
-    // Add other game starting logic here
-  };
   return (
-    <div className="flex h-screen w-screen">
-      <Routes>
-        <Route path="/" element={<GameMenu onStartGame={handleStartGame} />} />
-        <Route path="/game/create" element={<CreateGame />} />
-        <Route path="/game/join" element={<JoinGame />} />
-        <Route
-          path="/game/:gameID"
-          element={<TypeRacer gameState={gameState} />}
-        />
-      </Routes>
-      <Toaster position="top-right" reverseOrder={false} />
+    <div className="flex flex-col h-screen w-screen">
+      <Toaster />
+      {user ? (
+        <>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<GameMenu />} />
+            <Route path="/game/create" element={<CreateGame />} />
+            <Route path="/game/join" element={<JoinGame />} />
+            <Route
+              path="/game/:gameID"
+              element={<TypeRacer gameState={gameState} />}
+            />
+          </Routes>
+        </>
+      ) : (
+        // If no user is logged in, render the LoginPage
+        <Routes>
+          {/* Login route */}
+          <Route path="/login" element={<LoginPage />} />
+          {/* Signup route */}
+          <Route path="/signup" element={<SignUpPage />} />
+        </Routes>
+      )}
     </div>
   );
 }
-
-
 
 export default App;
