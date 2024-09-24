@@ -8,39 +8,48 @@ import toast from "react-hot-toast";
 
 const SignUpPage = () => {
   const [userCredentials, setUserCredentials] = useState({});
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   console.log(auth);
   const navigate = useNavigate();
 
-    function handleCredentials(e) {
-      setUserCredentials({
-        ...userCredentials,
-        [e.target.name]: e.target.value,
-      });
-      console.log(userCredentials);
+  function handleCredentials(e) {
+    setUserCredentials({
+      ...userCredentials,
+      [e.target.name]: e.target.value,
+    });
+    console.log(userCredentials);
+  }
+  
+  function handleSignup(e) {
+    e.preventDefault();
+    setError("");
+    if (
+      !userCredentials.email ||
+      !userCredentials.password
+    ) {
+      toast.error("All fields are required!");
+      return;
     }
-
-    function handleSignup(e) {
-      e.preventDefault();
-      setError("")
-      createUserWithEmailAndPassword(
-        auth,
-        userCredentials.email,
-        userCredentials.password
-      )
+    createUserWithEmailAndPassword(
+      auth,
+      userCredentials.email,
+      userCredentials.password
+    )
       .then((userCredential) => {
         // Signed up
-          const user = userCredential.user;        
-          console.log(user);
-          toast.success("Signup successful! Welcome to the Game.");
-          navigate("/");
-        })
-        .catch((error) => {
-          // const errorCode = error.code;
-          setError(error.message)
-          toast.error(`Signup failed: ${error.message}`);
-        });
-    }
+        const user = userCredential.user;
+        console.log(user);
+        toast.success("Signup successful! Welcome to the Game.");
+        setTimeout(() => {
+          toast.success("Please login to update username");
+        }, 3000);
+        navigate("/");
+      })
+      .catch((error) => {
+        setError(error.message);
+        toast.error(`Signup failed: ${error.message}`);
+      });
+  }
 
   return (
     <div className="w-screen mx-auto flex h-screen px-10">

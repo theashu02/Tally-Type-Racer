@@ -12,6 +12,7 @@ import SignUpPage from "./auth/SignUpPage";
 import { Toaster } from "react-hot-toast";
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState("");
   const [gameState, setGameState] = useState({
     _id: "",
     isOpen: false,
@@ -60,7 +61,7 @@ function App() {
       <Toaster />
       {user ? (
         <>
-          <Navbar />
+          <Navbar userName={loggedInUser} />
           <Routes>
             <Route path="/" element={<GameMenu />} />
             <Route path="/game/create" element={<CreateGame />} />
@@ -75,9 +76,15 @@ function App() {
         // If no user is logged in, render the LoginPage
         <Routes>
           {/* Login route */}
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={<LoginPage setLoggedInUser={setLoggedInUser} />}
+          />
           {/* Signup route */}
-          <Route path="/signup" element={<SignUpPage />} />
+          <Route
+            path="/signup"
+            element={<SignUpPage />}
+          />
         </Routes>
       )}
     </div>

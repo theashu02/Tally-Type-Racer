@@ -5,44 +5,58 @@ import { MdPassword } from "react-icons/md";
 import { auth } from "../firebase/config";
 import { sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import toast from "react-hot-toast";
+import PropTypes from "prop-types";
+import { VscSymbolNamespace } from "react-icons/vsc";
 
-const LoginPage = () => {
-    const [userCredentials, setUserCredentials] = useState({});
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+const LoginPage = ({ setLoggedInUser }) => {
+  const [userCredentials, setUserCredentials] = useState({});
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-    console.log(auth);
+  console.log(auth);
 
-    function handleCredentials(e) {
-      setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
-      console.log(userCredentials);
+  function handleCredentials(e) {
+    setUserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
+    console.log(userCredentials);
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    setError("");
+
+    if (
+      !userCredentials.email ||
+      !userCredentials.username ||
+      !userCredentials.password
+    ) {
+      toast.error("All fields are required!");
+      return;
     }
+    signInWithEmailAndPassword(
+      auth,
+      userCredentials.email,
+      userCredentials.password
+    )
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
 
-    function handleLogin(e) {
-        e.preventDefault();
-        setError("");
-        signInWithEmailAndPassword(
-        auth,
-        userCredentials.email,
-        userCredentials.password
-        )
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log(user);
-            toast.success("Login successful! Welcome to the Game.");
-            navigate("/");
-        })
-        .catch((error) => {
-            setError(error.message);
-            toast.error(`Signup failed: ${error.message}`);
-        });
-    }
+        setLoggedInUser(userCredentials.username);
 
-    function handlePasswordReset(){
-      const email = prompt('Please enter your email');
-      sendPasswordResetEmail(auth, email)
-      alert('Email sent! Check your inbox for password reset instructions.')
-    }
+        toast.success("Login successful! Welcome to the Game.");
+        navigate("/");
+      })
+      .catch((error) => {
+        setError(error.message);
+        toast.error(`Signup failed: ${error.message}`);
+      });
+  }
+
+  function handlePasswordReset() {
+    const email = prompt("Please enter your email");
+    sendPasswordResetEmail(auth, email);
+    alert("Email sent! Check your inbox for password reset instructions.");
+  }
 
   return (
     <div className="w-1/3 mx-auto flex h-screen">
@@ -60,6 +74,18 @@ const LoginPage = () => {
               placeholder="Email"
               name="email"
               onChange={(e) => handleCredentials(e)}
+            />
+          </label>
+          {/* Username input */}
+          <label className="input input-bordered rounded flex items-center gap-2">
+            <VscSymbolNamespace />
+            <input
+              type="text"
+              className="grow"
+              placeholder="Username"
+              name="username"
+              onChange={(e) => handleCredentials(e)}
+              required
             />
           </label>
 
@@ -102,3 +128,7 @@ const LoginPage = () => {
   );
 };
 export default LoginPage;
+
+LoginPage.propTypes = {
+  setLoggedInUser: PropTypes.func.isRequired, // setLoggedInUser should be a function and is required
+};
