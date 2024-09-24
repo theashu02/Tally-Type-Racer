@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 const SignUpPage = () => {
   const [userCredentials, setUserCredentials] = useState({});
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   console.log(auth);
   const navigate = useNavigate();
 
@@ -23,11 +24,13 @@ const SignUpPage = () => {
   function handleSignup(e) {
     e.preventDefault();
     setError("");
+    setIsLoading(true);
     if (
       !userCredentials.email ||
       !userCredentials.password
     ) {
       toast.error("All fields are required!");
+      setIsLoading(false); 
       return;
     }
     createUserWithEmailAndPassword(
@@ -48,6 +51,10 @@ const SignUpPage = () => {
       .catch((error) => {
         setError(error.message);
         toast.error(`Signup failed: ${error.message}`);
+      })
+      .finally(() => {
+      // Reset loading state after signup completes (success or failure)
+      setIsLoading(false);
       });
   }
 
@@ -85,8 +92,7 @@ const SignUpPage = () => {
               handleSignup(e);
             }}
           >
-            {/* {isPending ? "Loading..." : "Sign up"} */}
-            signup
+            {isLoading ? "Loading..." : "Sign Up"}
           </button>
           {error && <p className="text-red-500">{error}</p>}
         </form>

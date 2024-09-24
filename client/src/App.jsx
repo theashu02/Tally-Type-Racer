@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom"; // For navigation
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom"; // For navigation
 import GameMenu from "./components/GameMenu";
 import CreateGame from "./components/CreateGame";
 import JoinGame from "./components/JoinGame";
@@ -75,16 +75,14 @@ function App() {
       ) : (
         // If no user is logged in, render the LoginPage
         <Routes>
+          <Route path="*" element={<Navigate to="/login" />} />
           {/* Login route */}
           <Route
             path="/login"
             element={<LoginPage setLoggedInUser={setLoggedInUser} />}
           />
           {/* Signup route */}
-          <Route
-            path="/signup"
-            element={<SignUpPage />}
-          />
+          <Route path="/signup" element={<SignUpPage />} />
         </Routes>
       )}
     </div>
