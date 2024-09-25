@@ -1,16 +1,30 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import socket from "../socketConfig";
+import { UserContext } from "../context/UserContext"
 
 const JoinGame = () => {
-  const [userInput, setUserInput] = useState({ gameID: "", nickName: "" });
+  const { userName } = useContext(UserContext);
+  const [userInput, setUserInput] = useState({
+    gameID: "",
+    nickName: userName || "",
+  });
 
   const onChange = (e) => {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
   };
 
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("gave user input at 13",userInput);
+  //   socket.emit("join-game", userInput);
+  // };
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("gave user input at 13",userInput);
+    if (!userInput.gameID) {
+      console.error("Game ID is required");
+      return; // Notify the user or handle it accordingly
+    }
+    console.log("User Input on Submit:", userInput);
     socket.emit("join-game", userInput);
   };
 
@@ -44,7 +58,9 @@ const JoinGame = () => {
             <input
               type="text"
               name="nickName"
+              // value={userInput.nickName}
               value={userInput.nickName}
+              readOnly
               onChange={onChange}
               placeholder="Enter Nick Name"
               className="input input-bordered input-success w-full max-w-xs"

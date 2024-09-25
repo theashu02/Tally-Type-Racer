@@ -1,21 +1,20 @@
-import { useState } from "react";
+import { useContext } from "react";
 import socket from "../socketConfig.js";
+import { UserContext } from "../context/UserContext";
 
 const CreateGame = () => {
-  // console.log(props);
+  const { userName } = useContext(UserContext);
   
-  const [nickName, setNickName] = useState("");
-
-  const onChange = (e) => {
-    setNickName(e.target.value);
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("check nickname", nickName);
-    
-    socket.emit("create-game", nickName);
-    console.log("button pressed")
+
+    if (userName) {
+      console.log("Creating game with nickname:", userName, "button pressed");
+      // Emit the create-game event with the userName from context
+      socket.emit("create-game", userName);
+    } else {
+      console.log("No user is logged in");
+    }
   };
 
   return (
@@ -35,8 +34,8 @@ const CreateGame = () => {
             <input
               type="text"
               name="nickName"
-              value={nickName}
-              onChange={onChange}
+              value={userName || ""}
+              readOnly
               placeholder="Enter Nick Name"
               className="input input-bordered input-success w-full px-4 py-2 shadow-sm "
             />

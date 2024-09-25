@@ -10,12 +10,14 @@ import {
 import toast from "react-hot-toast";
 import PropTypes from "prop-types";
 import { VscSymbolNamespace } from "react-icons/vsc";
+import { useUser } from "../context/useUser";
 
-const LoginPage = ({ setLoggedInUser }) => {
+const LoginPage = () => {
   const [userCredentials, setUserCredentials] = useState({});
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const { setUserName } = useUser();
 
   console.log(auth);
 
@@ -47,7 +49,8 @@ const LoginPage = ({ setLoggedInUser }) => {
         const user = userCredential.user;
         console.log(user);
 
-        setLoggedInUser(userCredentials.username);
+        // setLoggedInUser(userCredentials.username);
+        setUserName(userCredentials.username);
 
         toast.success("Login successful! Welcome to the Game.");
         navigate("/");
@@ -69,7 +72,9 @@ const LoginPage = ({ setLoggedInUser }) => {
     if (email) {
       sendPasswordResetEmail(auth, email)
         .then(() => {
-          toast.success("Email sent! Check your inbox for password reset instructions.");
+          toast.success(
+            "Email sent! Check your inbox for password reset instructions."
+          );
           // Close the modal after sending the email
           document.getElementById("my_modal_5").close();
         })
@@ -132,7 +137,7 @@ const LoginPage = ({ setLoggedInUser }) => {
           >
             {isLoading ? "Loading..." : "Login"}
           </button>
-        
+
           {error && <p className="text-red-500">{error}</p>}
         </form>
         <div className="flex flex-col gap-4 mt-4">
@@ -186,6 +191,6 @@ const LoginPage = ({ setLoggedInUser }) => {
 };
 export default LoginPage;
 
-LoginPage.propTypes = {
-  setLoggedInUser: PropTypes.func.isRequired, // setLoggedInUser should be a function and is required
-};
+// LoginPage.propTypes = {
+//   setLoggedInUser: PropTypes.func.isRequired, // setLoggedInUser should be a function and is required
+// };

@@ -10,9 +10,10 @@ import LoginPage from "./auth/LoginPage";
 import { auth } from "./firebase/config";
 import SignUpPage from "./auth/SignUpPage";
 import { Toaster } from "react-hot-toast";
+import { UserProvider } from "./context/UserContext";
+// import ProtectedRoute from "./context/ProtectedRoute"
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState("");
   const [gameState, setGameState] = useState({
     _id: "",
     isOpen: false,
@@ -57,35 +58,42 @@ function App() {
   }, [gameState._id, navigate]);
 
   return (
-    <div className="flex flex-col h-screen w-screen">
-      <Toaster />
-      {user ? (
-        <>
-          <Navbar userName={loggedInUser} />
+    <UserProvider>
+      <div className="flex flex-col h-screen w-screen">
+        <Toaster />
+
+        {user ? (
+          <>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<GameMenu />} />
+              <Route path="/game/create" element={<CreateGame />} />
+              <Route path="/game/join" element={<JoinGame />} />
+              <Route
+                path="/game/:gameID"
+                element={<TypeRacer gameState={gameState} />}
+              />
+            </Routes>
+          </>
+        ) : (
+          // If no user is logged in, render the LoginPage
           <Routes>
-            <Route path="/" element={<GameMenu />} />
-            <Route path="/game/create" element={<CreateGame />} />
-            <Route path="/game/join" element={<JoinGame />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+            {/* Login route */}
+            <Route path="/login" element={<LoginPage />} />
+            {/*other routes */}
             <Route
               path="/game/:gameID"
-              element={<TypeRacer gameState={gameState} />}
+              element={
+                  <LoginPage />
+              }
             />
+            {/* Signup route */}
+            <Route path="/signup" element={<SignUpPage />} />
           </Routes>
-        </>
-      ) : (
-        // If no user is logged in, render the LoginPage
-        <Routes>
-          <Route path="*" element={<Navigate to="/login" />} />
-          {/* Login route */}
-          <Route
-            path="/login"
-            element={<LoginPage setLoggedInUser={setLoggedInUser} />}
-          />
-          {/* Signup route */}
-          <Route path="/signup" element={<SignUpPage />} />
-        </Routes>
-      )}
-    </div>
+        )}
+      </div>
+    </UserProvider>
   );
 }
 
