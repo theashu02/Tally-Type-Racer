@@ -5,6 +5,8 @@ import { MdPassword } from "react-icons/md";
 import { auth } from "../firebase/config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import toast from "react-hot-toast";
+import { VscSymbolNamespace } from "react-icons/vsc";
+import { useUser } from "../context/useUser";
 
 const SignUpPage = () => {
   const [userCredentials, setUserCredentials] = useState({});
@@ -12,6 +14,7 @@ const SignUpPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   console.log(auth);
   const navigate = useNavigate();
+  const { setUserName } = useUser();
 
   function handleCredentials(e) {
     setUserCredentials({
@@ -42,6 +45,7 @@ const SignUpPage = () => {
         // Signed up
         const user = userCredential.user;
         console.log(user);
+        setUserName(userCredentials.username);
         toast.success("Signup successful! Welcome to the Game.");
         setTimeout(() => {
           toast.success("Please login to update username");
@@ -74,6 +78,18 @@ const SignUpPage = () => {
               placeholder="Email"
               name="email"
               onChange={(e) => handleCredentials(e)}
+            />
+          </label>
+          {/* Username input */}
+          <label className="input input-bordered rounded flex items-center gap-2">
+            <VscSymbolNamespace />
+            <input
+              type="text"
+              className="grow"
+              placeholder="Username"
+              name="username"
+              onChange={(e) => handleCredentials(e)}
+              required
             />
           </label>
           <label className="input input-bordered rounded flex items-center gap-2">

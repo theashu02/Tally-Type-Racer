@@ -8,7 +8,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import toast from "react-hot-toast";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { VscSymbolNamespace } from "react-icons/vsc";
 import { useUser } from "../context/useUser";
 
