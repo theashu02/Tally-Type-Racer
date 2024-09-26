@@ -2,26 +2,24 @@ const express = require('express');
 const app = express();
 const socketio = require('socket.io');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const path = require('path');
 
-const expressServer = app.listen(3001);
+
+const PORT = process.env.PORT || 5000;
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const expressServer = app.listen(PORT, () =>
+  console.log(`Server running on port ${PORT}`)
+);
 const io = socketio(expressServer);
+dotenv.config();
 
 const Game = require('./Models/Game');
 const QuotableAPI = require('./QuotableAPI');
 
-async function connectToDB() {
-  try {
-    await mongoose.connect(
-      "mongodb+srv://ashu:ashu@cluster0.q5cwn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-    );
-    // console.log("Successfully connected to MongoDB", );
-    console.log(`MongoDB connected: ${mongoose.connection.host}`);
-  } catch (err) {
-    console.error("Error connecting to MongoDB:", err);
-  }
-}
+const url = process.env.MONGO_URL;
 
-connectToDB();
+
 
 io.on('connect',(socket)=>{
 
@@ -219,3 +217,24 @@ const calculateWPM = (endTime,startTime,player) =>{
     const WPM = Math.floor(numOfWords/ timeInMinutes);
     return WPM;
 }
+// const __dirname = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+  });
+}
+
+async function connectToDB() {
+  try {
+    await mongoose.connect(url);
+    // console.log("Successfully connected to MongoDB", );
+    console.log(`MongoDB connected: ${mongoose.connection.host}`);
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+  }
+}
+
+connectToDB();
