@@ -3,7 +3,7 @@ const app = express();
 const socketio = require('socket.io');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const path = require('path');
+// const path = require('path');
 
 
 const PORT = process.env.PORT || 5000;
@@ -219,13 +219,13 @@ const calculateWPM = (endTime,startTime,player) =>{
 }
 // const __dirname = path.resolve();
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/dist")));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../client/dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
-  });
-}
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+//   });
+// }
 
 async function connectToDB() {
   try {
