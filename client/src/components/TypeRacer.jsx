@@ -36,10 +36,10 @@ const TypeRacer = ({ gameState }) => {
         <BackButton onClick={handleClick} />
       </div>
       <div className="flex flex-col justify-center w-screen h-screen">
-        <div className="text-center mt-3">
+        <div className="text-center">
           <DisplayWords words={words} player={player} />
         </div>
-        <div className="mb-8">
+        <div className="mb-5">
           <ProgressBar
             players={players}
             player={player}
@@ -49,17 +49,17 @@ const TypeRacer = ({ gameState }) => {
         {/* <div className="mb-8">
         <Form isOpen={isOpen} isOver={isOver} gameID={_id} />
       </div> */}
-        <div className="mb-8">
+        <div className="mb-3">
           {!isOver && <Form isOpen={isOpen} isOver={isOver} gameID={_id} />}
         </div>
-        <div className="mb-8">
+        <div className="mb-3">
           <CountDown />
         </div>
-        <div className="flex mb-8 justify-center">
+        <div className="flex mb-4 justify-center">
           <StartBtn player={player} gameID={_id} />
         </div>
         {isOpen && (
-          <div className="mb-8">
+          <div className="mb-3">
             <DisplayGameCode gameID={_id} />
           </div>
         )}

@@ -11,6 +11,7 @@ const ProgressBar = ({ player, players, wordsLength }) => {
   if (!player || !players || !wordsLength) {
     return <div>Error: Missing required data.</div>;
   }
+  console.log("this is player", player, "this is players", players, "this is word", wordsLength)
 
   const percentage = calculatePercentage(player, wordsLength);
 

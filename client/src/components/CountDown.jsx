@@ -25,10 +25,10 @@ const CountDown = () => {
   return (
     <div className="flex flex-col space-y-2 text-center">
       <div className="flex justify-center items-center">
-        <span className="text-gray-400 countdown font-mono text-6xl">{countDown}</span>
+        <span className="text-gray-200 countdown font-mono text-2xl">{countDown}</span>
       </div>
       <div className="flex justify-center items-center">
-        <h3 className="text-xl text-gray-400">{msg}</h3>
+        <h3 className="text-xl text-gray-300">{msg}</h3>
       </div>
     </div>
   );
