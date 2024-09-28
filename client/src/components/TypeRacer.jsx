@@ -8,6 +8,8 @@ import Form from "./Form";
 import ProgressBar from "./ProgressBar";
 import ScoreBoard from "./ScoreBoard";
 import DisplayGameCode from "./DisplayGameCode";
+import BackButton from "./BackButton";
+import { useNavigate } from "react-router-dom";
 
 const findPlayer = (players) => {
   return players.find((player) => player.socketID === socket.id);
@@ -16,43 +18,56 @@ const findPlayer = (players) => {
 const TypeRacer = ({ gameState }) => {
   const { _id, players, words, isOpen, isOver } = gameState;
   console.log(_id, players, words, isOpen, isOver);
+  const navigate = useNavigate();
 
   const player = findPlayer(players);
 
   if (_id === "") {
     return <Navigate to="/" />;
   }
+  const handleClick =() => {
+    navigate("/game/create");
+    // window.location.href = "/game/create";
+  }
 
   return (
-    <div className="flex flex-col justify-center w-screen h-screen">
-      <div className="text-center mt-3">
-        <DisplayWords words={words} player={player} />
+    <>
+      <div className="ml-5 mt-5">
+        <BackButton onClick={handleClick} />
       </div>
-      <div className="mb-8">
-        <ProgressBar
-          players={players}
-          player={player}
-          wordsLength={words.length}
-        />
-      </div>
-      <div className="mb-8">
-        <Form isOpen={isOpen} isOver={isOver} gameID={_id} />
-      </div>
-      <div className="mb-8">
-        <CountDown />
-      </div>
-      <div className="flex mb-8 justify-center">
-        <StartBtn player={player} gameID={_id} />
-      </div>
-      {isOpen && (
-        <div className="mb-8">
-          <DisplayGameCode gameID={_id} />
+      <div className="flex flex-col justify-center w-screen h-screen">
+        <div className="text-center mt-3">
+          <DisplayWords words={words} player={player} />
         </div>
-      )}
-      <div className="flex justify-center">
-        <ScoreBoard players={players} />
+        <div className="mb-8">
+          <ProgressBar
+            players={players}
+            player={player}
+            wordsLength={words.length}
+          />
+        </div>
+        {/* <div className="mb-8">
+        <Form isOpen={isOpen} isOver={isOver} gameID={_id} />
+      </div> */}
+        <div className="mb-8">
+          {!isOver && <Form isOpen={isOpen} isOver={isOver} gameID={_id} />}
+        </div>
+        <div className="mb-8">
+          <CountDown />
+        </div>
+        <div className="flex mb-8 justify-center">
+          <StartBtn player={player} gameID={_id} />
+        </div>
+        {isOpen && (
+          <div className="mb-8">
+            <DisplayGameCode gameID={_id} />
+          </div>
+        )}
+        <div className="flex justify-center">
+          <ScoreBoard players={players} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

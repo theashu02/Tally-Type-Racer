@@ -61,7 +61,6 @@ function App() {
     <UserProvider>
       <div className="flex flex-col h-screen w-screen">
         <Toaster />
-
         {user ? (
           <>
             <Navbar />
