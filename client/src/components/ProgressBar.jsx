@@ -1,13 +1,17 @@
 import PropTypes from "prop-types";
 
 const calculatePercentage = (player, wordsLength) => {
-  if (player.currentWordIndex !== 0) {
+  if (player && player.currentWordIndex !== undefined && wordsLength) {
     return ((player.currentWordIndex / wordsLength) * 100).toFixed(2) + "%";
   }
   return "0%";
 };
 
 const ProgressBar = ({ player, players, wordsLength }) => {
+  if (!player || !players || !wordsLength) {
+    return <div>Error: Missing required data.</div>;
+  }
+
   const percentage = calculatePercentage(player, wordsLength);
 
   return (
@@ -80,6 +84,5 @@ ProgressBar.propTypes = {
   ).isRequired,
   wordsLength: PropTypes.number.isRequired,
 };
-
 
 export default ProgressBar;
